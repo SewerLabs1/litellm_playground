@@ -4,9 +4,11 @@ import requests
 
 # Function to get model outputs
 def get_model_output_thread(prompt, model_name, outputs, idx):
-    url = "http://localhost:4000/chat/completions" ## COMPLETION CALL -- assumes your server is running on port 4000
+    url = "https://api.together.xyz/inference" 
     headers = {
-        "Content-Type": "application/json"
+        "accept": "application/json",
+        "content-type": "application/json",
+        "Authorization": "Bearer cad84f39be62a8e36fdd846152dbb18abddef0aefcd921e82e287b4c228ac3e1"
     }
     data = {
         "model": model_name,
@@ -26,8 +28,8 @@ def get_model_output_thread(prompt, model_name, outputs, idx):
 
 # Streamlit app
 def main():
-    st.title("My LLM API Playground")
-    st.subheader("Powered by [LiteLLM](https://github.com/BerriAI/litellm/)")
+    st.title("DittoLLM Playground")
+    st.subheader("Powered LiteLLM")
 
     # Sidebar for user input
     st.header("User Input")
@@ -38,7 +40,7 @@ def main():
     st.header("Model Outputs")
     
     # List of models to test
-    model_names = ["gpt-3.5-turbo", "command-nightly", "j2-mid"]  # Add your model names here
+    model_names = ["togethercomputer/CodeLlama-34b-Instruct", "mistralai/Mistral-7B-Instruct-v0.1", "Phind/Phind-CodeLlama-34B-v2"]  # Add your model names here
     
     cols = st.columns(len(model_names))  # Create columns
     outputs = [""] * len(model_names)  # Initialize outputs list with empty strings
